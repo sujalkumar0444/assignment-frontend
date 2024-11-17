@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import ProtectedRoute from "./components/ProtectedRoute";
+import "./App.css";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+import Home from "./components/Home";
+import LandingPage from "./components/LandingPage";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Documentation from "./components/documentation";
+
+
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/signup" element={<Register />} />
+                <Route path="/api/docs" element={<Documentation />} />
+                <Route path="/login" element={<Login />} />
+                <Route element={<ProtectedRoute/>}>
+                    <Route path="/" element={<Home />}>
+                        <Route index element={<LandingPage />} />
+                        {/* <Route path="poems" element={<Poems />} />
+                        <Route path="settings" element={<UserSettings />} />
+                        <Route path="sounds" element={<AllSounds />} />
+                        <Route path="drawings" element={<AllDrawings />} /> */}
+                    </Route>
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;
